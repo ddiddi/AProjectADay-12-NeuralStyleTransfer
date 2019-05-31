@@ -56,8 +56,20 @@ while True:
     # Swap the channel ordering
 	output = output.transpose(1, 2, 0)
 
-	# show the original frame along with the output neural style
-	# transfer
+	# Show output
 	cv2.imshow("Input", frame)
 	cv2.imshow("Output", output)
-	key = cv2.waitKey(1) & 0xFF
+
+    # Key input
+    key = cv2.waitKey(1) & 0xFF
+
+	if key == ord("n"):
+        (model_ID, model_path) = next(model_iter)
+		print("[INFO] {}. {}".format(model_ID + 1, model_path))
+		net = cv2.dnn.readNetFromTorch(model_path)
+
+	elif key == ord("q"):
+		break
+
+cv2.destroyAllWindows()
+vs.stop()
